@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ConvexClerkProvider from "./providers/ConvexClerkProvider";
 
 export const metadata: Metadata = {
   title: "SpotcastAI",
@@ -15,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // <ConvexClerkProvider>
     <html>
       <body className="antialiased">
         {children}
       </body>
     </html>
+    // </ConvexClerkProvider >
   );
 }
