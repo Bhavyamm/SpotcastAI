@@ -1,4 +1,4 @@
-import { PodcastCardProps } from '@/types/PodcastCardProps'
+import { PodcastCardProps } from '@/types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'

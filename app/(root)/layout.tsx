@@ -1,4 +1,5 @@
 import LeftSidebar from "@/components/LeftSidebar";
+import { Toaster } from "@/components/ui/toaster";
 import Image from "next/image";
 
 export default function RootLayout({
@@ -21,6 +22,7 @@ export default function RootLayout({
                             />
                         </div>
                         <div className="flex flex-col md:pb-14">
+                            <Toaster />
                             {children}
                         </div>
                     </div>
