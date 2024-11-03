@@ -7,9 +7,9 @@ import { GenerateThumbnailProps } from '@/types';
 import { Loader } from 'lucide-react';
 import { Input } from './ui/input';
 import Image from 'next/image';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from "@/hooks/use-toast";
 import { useAction, useMutation } from 'convex/react';
-// import { useUploadFiles } from '@xixixao/uploadstuff/react';
+import { useUploadFiles } from '@xixixao/uploadstuff/react';
 import { api } from '@/convex/_generated/api';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,45 +18,47 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
     const [isImageLoading, setIsImageLoading] = useState(false);
     const imageRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
-    // const generateUploadUrl = useMutation(api.files.generateUploadUrl);
-    // const { startUpload } = useUploadFiles(generateUploadUrl)
-    // const getImageUrl = useMutation(api.podcasts.getUrl);
-    // const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction)
+    const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+    const { startUpload } = useUploadFiles(generateUploadUrl)
+    const getImageUrl = useMutation(api.podcasts.getUrl);
+    const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction)
 
-    // const handleImage = async (blob: Blob, fileName: string) => {
-    //     setIsImageLoading(true);
-    //     setImage('');
+    const handleImage = async (blob: Blob, fileName: string) => {
+        setIsImageLoading(true);
+        setImage('');
 
-    //     try {
-    //         const file = new File([blob], fileName, { type: 'image/png' });
+        try {
+            const file = new File([blob], fileName, { type: 'image/png' });
 
-    //         const uploaded = await startUpload([file]);
-    //         const storageId = (uploaded[0].response as any).storageId;
+            const uploaded = await startUpload([file]);
+            const storageId = (uploaded[0].response as any).storageId;
 
-    //         setImageStorageId(storageId);
+            setImageStorageId(storageId);
 
-    //         const imageUrl = await getImageUrl({ storageId });
-    //         setImage(imageUrl!);
-    //         setIsImageLoading(false);
-    //         toast({
-    //             title: "Thumbnail generated successfully",
-    //         })
-    //     } catch (error) {
-    //         console.log(error)
-    //         toast({ title: 'Error generating thumbnail', variant: 'destructive' })
-    //     }
-    // }
+            const imageUrl = await getImageUrl({ storageId });
+            setImage(imageUrl!);
+            setIsImageLoading(false);
+            toast({
+                title: "Thumbnail generated successfully",
+            })
+        } catch (error) {
+            console.log(error)
+            toast({ title: 'Error generating thumbnail', variant: 'destructive' })
+        }
+    }
 
-    // const generateImage = async () => {
-    //     try {
-    //         const response = await handleGenerateThumbnail({ prompt: imagePrompt });
-    //         const blob = new Blob([response], { type: 'image/png' });
-    //         handleImage(blob, `thumbnail-${uuidv4()}`);
-    //     } catch (error) {
-    //         console.log(error)
-    //         toast({ title: 'Error generating thumbnail', variant: 'destructive' })
-    //     }
-    // }
+    const generateImage = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setIsImageLoading(true);
+        try {
+            const response = await handleGenerateThumbnail({ prompt: imagePrompt });
+            const blob = new Blob([response], { type: 'image/png' });
+            await handleImage(blob, `thumbnail-${uuidv4()}`);
+        } catch (error) {
+            console.log(error)
+            toast({ title: 'Error generating thumbnail', variant: 'destructive' })
+        }
+    }
     const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
@@ -67,7 +69,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
             const blob = await file.arrayBuffer()
                 .then((ab) => new Blob([ab]));
 
-            // handleImage(blob, file.name);
+            handleImage(blob, file.name);
         } catch (error) {
             console.log(error)
             toast({ title: 'Error uploading image', variant: 'destructive' })
@@ -79,7 +81,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
             <div className="generate_thumbnail">
                 <Button
                     type="button"
-                    variant="default"
+                    variant="plain"
                     onClick={() => setIsAiThumbnail(true)}
                     className={cn('', {
                         'bg-black-6': isAiThumbnail
@@ -89,7 +91,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                 </Button>
                 <Button
                     type="button"
-                    variant="default"
+                    variant="plain"
                     onClick={() => setIsAiThumbnail(false)}
                     className={cn('', {
                         'bg-black-6': !isAiThumbnail
@@ -113,7 +115,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
                         />
                     </div>
                     <div className="w-full max-w-[200px]">
-                        <Button type="submit" className="text-16 bg-orange-1 py-4 font-bold text-white-1">
+                        <Button type="submit" className="text-16 bg-orange-1 py-4 font-bold text-white-1" onClick={generateImage}>
                             {isImageLoading ? (
                                 <>
                                     Generating

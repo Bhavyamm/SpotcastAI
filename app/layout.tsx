@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ConvexClerkProvider from "./providers/ConvexClerkProvider";
+import AudioProvider from "./providers/AudioProvider";
 
 export const metadata: Metadata = {
   title: "SpotcastAI",
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html>
       <body className="antialiased">
         <ConvexClerkProvider>
-          {children}
+          <AudioProvider>
+            {children}
+          </AudioProvider>
         </ConvexClerkProvider>
       </body>
     </html>

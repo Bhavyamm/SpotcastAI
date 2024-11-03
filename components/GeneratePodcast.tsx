@@ -24,7 +24,8 @@ const useGeneratePodcast = ({
 
     const getAudioUrl = useMutation(api.podcasts.getUrl);
 
-    const generatePodcast = async () => {
+    const generatePodcast = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         setIsGenerating(true);
         setAudio('');
 
@@ -64,7 +65,6 @@ const useGeneratePodcast = ({
             })
             setIsGenerating(false);
         }
-
     }
 
     return { isGenerating, generatePodcast }

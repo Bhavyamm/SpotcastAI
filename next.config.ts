@@ -15,6 +15,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'descriptive-cormorant-590.convex.cloud'
+      },
+      {
+        protocol: 'https',
         hostname: 'img.clerk.com'
       },
     ]
