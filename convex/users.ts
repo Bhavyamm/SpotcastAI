@@ -31,10 +31,7 @@ export const getTopUserByPodcastCount = query({
                     .filter((q) => q.eq(q.field("authorId"), u.clerkId))
                     .collect();
 
-                console.log(podcasts, "podcasts");
-
                 const sortedPodcasts = podcasts.sort((a, b) => b.views - a.views);
-                console.log(sortedPodcasts, "sortedPodcasts");
 
                 return {
                     ...u,
@@ -47,9 +44,6 @@ export const getTopUserByPodcastCount = query({
                 };
             })
         );
-
-        console.log(userData, "user data")
-        console.log(userData.sort((a, b) => b.totalPodcasts - a.totalPodcasts), "sorted data")
 
         return userData.sort((a, b) => b.totalPodcasts - a.totalPodcasts);
     },

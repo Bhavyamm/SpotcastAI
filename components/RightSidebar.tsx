@@ -15,7 +15,6 @@ import { useAudio } from '@/app/providers/AudioProvider';
 const RightSidebar = () => {
     const { user } = useUser();
     const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
-    console.log(topPodcasters, "top podcasters")
     const router = useRouter();
 
     const { audio } = useAudio();
