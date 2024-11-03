@@ -16,12 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <ConvexClerkProvider>
     <html>
       <body className="antialiased">
-        {children}
+        <ConvexClerkProvider>
+          {children}
+        </ConvexClerkProvider>
       </body>
     </html>
-    // </ConvexClerkProvider >
   );
 }
