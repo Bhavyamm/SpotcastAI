@@ -31,6 +31,8 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
             const file = new File([blob], fileName, { type: 'image/png' });
 
             const uploaded = await startUpload([file]);
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const storageId = (uploaded[0].response as any).storageId;
 
             setImageStorageId(storageId);

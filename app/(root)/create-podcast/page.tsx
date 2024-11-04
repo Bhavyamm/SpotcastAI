@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -93,6 +92,7 @@ const CreatePodcast = () => {
                 audioStorageId: audioStorageId!,
                 imageStorageId: imageStorageId!,
             })
+            console.log(podcast, "podcast")
             toast({ title: 'Podcast created' })
             setIsSubmitting(false);
             router.push('/')

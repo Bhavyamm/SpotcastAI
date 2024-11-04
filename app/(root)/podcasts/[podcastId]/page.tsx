@@ -9,7 +9,7 @@ import { Id } from '@/convex/_generated/dataModel'
 import { useUser } from '@clerk/nextjs'
 import { useQuery } from 'convex/react'
 import Image from 'next/image'
-import React, { use, useEffect } from 'react'
+import React, { use } from 'react'
 
 const PodcastDetails = ({ params }: { params: Promise<{ podcastId: Id<'podcasts'> }> }) => {
     const { podcastId } = use(params);

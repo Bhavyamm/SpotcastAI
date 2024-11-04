@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { EmblaCarouselType } from 'embla-carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
-import { CarouselProps } from '@/types'
+import { CarouselProps, TopPodcastersProps } from '@/types'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import LoaderSpinner from './LoaderSpinner'
@@ -30,7 +30,7 @@ const EmblaCarousel = ({ fansLikeDetail }: CarouselProps) => {
         onNavButtonClick
     )
 
-    const slides = fansLikeDetail && fansLikeDetail?.filter((item: any) => item.totalPodcasts > 0)
+    const slides = fansLikeDetail && fansLikeDetail?.filter((item: TopPodcastersProps) => item.totalPodcasts > 0)
     const userName = slides && slides[0]?.name
 
     if (!slides) return <LoaderSpinner />
