@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ConvexClerkProvider from "./providers/ConvexClerkProvider";
 import AudioProvider from "./providers/AudioProvider";
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "SpotcastAI",
@@ -22,6 +23,7 @@ export default function RootLayout({
         <ConvexClerkProvider>
           <AudioProvider>
             {children}
+            <Analytics />
           </AudioProvider>
         </ConvexClerkProvider>
       </body>
